@@ -2,6 +2,16 @@ import React, { Component } from 'react';
 import "./Validator.css";
 
 class Validator extends Component {
+  constructor(props) {
+    super(props)
+    this.state = {
+      email: '',
+      password: '',
+      confirmPassword: '',
+      valid: true
+    }; //means that form is in its original state when the fields are empty ('is there a value here? no. confirmed to be TRUE')
+
+  }
   render() {
     return (
       <div className="form">
