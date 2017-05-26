@@ -12,7 +12,7 @@ class Validator extends Component {
     }; //means that form is in its original state when the fields are empty ('is there a value here? no. confirmed to be TRUE')
 
   }
-
+  //takes whatever happens in the email field and makes it the current state for that field.
   handleInputEmail(event) {
     this.setState({email: event.target.email});
   }
@@ -38,12 +38,13 @@ class Validator extends Component {
     return (
       <div className="form">
         <h1>Sign Up</h1>
-        <input type="text" placeholder="email" value={this.state.email} />
-        <input type="password" placeholder="password" value={this.state.password} />
-        <input type="password" placeholder="confirm password" value={this.state.confirmPassword}/>
-        <input type="submit" value="Submit" />
+        <input onChange={(e) => this.handleInputEmail(e)} type="text" placeholder="email"  />
+        <input onChange={(e) => this.handleInputPassword(e)} type="password" placeholder="password"  />
+        <input onChange={(e) => this.handleInputConfirm(e)} type="password" placeholder="confirm password" />
+        <input onChange={(e) => this.handleSubmit(e)} type="submit" value="Submit" />
       </div>
-    );
+    ); // when a change (which is an event in itself) occurs in this field, run handleInputEmail function,
+      // and so on
   }
 }
 
