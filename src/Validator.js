@@ -9,43 +9,53 @@ class Validator extends Component {
       password: '',
       confirmPassword: '',
       valid: true
-    }; //means that form is in its original state when the fields are empty ('is there a value here? no. confirmed to be TRUE')
+    } //means that form is in its original state when the fields are empty ('is there a value here? no. confirmed to be TRUE')
 
   }
   //takes whatever happens in the email field and makes it the current state for that field.
   handleInputEmail(event) {
-    this.setState({email: event.target.email});
+    this.setState({email: event.target.value});
   }
 
   handleInputPassword(event) {
-    this.setState({password: event.target.password});
+    this.setState({password: event.target.value});
   }
 
   handleInputConfirm(event) {
-    this.setState({confirmPassword: event.target.confirmPassword})
+    this.setState({confirmPassword: event.target.value})
   }
 
   handleSubmit(event) {
-    if (password == confirmPassword) {
-      return "Valid password!"
-    }
-    else {
-      return "The passwords do not match."
+    event.preventDefault()
+    this.isValid()
+  } //when submit happens, stop it from actually submitting the info, and instead run isValid function first.
+
+  isValid () {
+    if (this.state.password === this.state.confirmPassword) {
+      this.setState({valid: true})
+    } else {
+      this.setState({valid: false})
     }
   }
 
+
   render() {
+    let passValid = this.state.valid ? "Valid Password!" : "Passwords do not match"
     return (
       <div className="form">
         <h1>Sign Up</h1>
         <input onChange={(e) => this.handleInputEmail(e)} type="text" placeholder="email"  />
         <input onChange={(e) => this.handleInputPassword(e)} type="password" placeholder="password"  />
         <input onChange={(e) => this.handleInputConfirm(e)} type="password" placeholder="confirm password" />
-        <input onChange={(e) => this.handleSubmit(e)} type="submit" value="Submit" />
+        <input type="submit" onClick={(e) => this.handleSubmit(e)}  value="Submit" />
+        <p>{passValid}</p>
       </div>
     ); // when a change (which is an event in itself) occurs in this field, run handleInputEmail function,
       // and so on
   }
+
 }
+
+
 
 export default Validator;
